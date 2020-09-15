@@ -1,4 +1,4 @@
-const baseURL = 'http://api.weatherstack.com/forecast';
+const baseURL = 'https://api.weatherstack.com/forecast';
 const key = '89c6f7e1459d3d440ba41d9192a90373';
 let url;
 
