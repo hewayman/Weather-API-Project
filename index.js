@@ -131,6 +131,6 @@ function getCelsius(e) {
     console.log(e);
 }
 
-function getFahrenheit(e) {
-    console.log(e);
-}
+// function getFahrenheit(e) {
+//     console.log(e);
+// }
