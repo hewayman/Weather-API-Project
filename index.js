@@ -1,5 +1,5 @@
-const baseURL = 'https://api.weatherstack.com/forecast';
-const key = '89c6f7e1459d3d440ba41d9192a90373';
+const baseURL = 'https://api.weatherbit.io/v2.0/current';
+const key = '9b2750ef12654f16a8c935749cf6a49f';
 let url;
 
 // SEARCH FORM
@@ -16,8 +16,7 @@ const wrapper = document.querySelector('.wrapper');
 
 function getResults(e) {
     e.preventDefault();
-    url = baseURL + '?access_key=' + key + '&query=' + searchTerm.value;
-    console.log('Search Term', searchTerm.value);
+    url = baseURL + '?city=' + searchTerm.value + '&key=' + key;
     console.log('URL', url);
 
     fetch(url)
@@ -28,32 +27,35 @@ function getResults(e) {
 function displayResults(json) {
     console.log(json);
     // Set location
-    let city = json.location.name;
-    let country = json.location.country;
-    let region = json.location.region;
+    let city = json.data[0].city_name;
+    let country = json.data[0].country_code;
+    let state = json.data[0].state_code;
     let location;
     
     // Set state if within USA, otherwise use country
-    if (country === 'United States of America') {
-        location = city + ', ' + region;
+    if (country === 'US') {
+        location = city + ', ' + state;
     } else {
         location = city + ', ' + country;
     }
     console.log(location);
 
-    // Set forecast
-    let temp = json.current.temperature;
-    let humidity = json.current.humidity;
-    let precip = json.current.precip;
-    let windSpeed = json.current.wind_speed;
-    let windDirection = json.current.wind_dir;
-    let weatherDesc = json.current.weather_descriptions[0];
+    // // Set forecast
+    let temp = json.data[0].temp;
+    let humidity = json.data[0].rh + '%';
+    let precip = json.data[0].precip + ' mm/hr';
+    let windSpeed = json.data[0].wind_spd;
+    let windDirection = json.data[0].wind_cdir;
+    let weatherDesc = json.data[0].weather.description;
+    let weatherCode = json.data[0].weather.code;
 
     console.log(temp);
     console.log(humidity);
+    console.log(precip);
     console.log(windSpeed); 
     console.log(windDirection);
     console.log(weatherDesc);
+    console.log(weatherCode);
 
     // Remove children from results div before adding new search results
     while (results.firstChild) {
@@ -73,19 +75,18 @@ function displayResults(json) {
     let celsiusBtn = document.createElement('button');
 
     // Set img src and alt text
-    if (weatherDesc.includes('partly sunny') || weatherDesc.includes('Partly sunny')) {
-        img.src = 'assets/partlyCloudy.svg';
-    } else if (weatherDesc.includes('sunny') || weatherDesc.includes('Sunny')) {
-        img.src = 'assets/sunny.svg';
-        console.log('sunny baby');
-    } else if (weatherDesc.includes('partly cloudy') || weatherDesc.includes('Partly cloudy')) {
-        img.src = 'assets/partlyCloudy.svg';
-    } else if (weatherDesc.includes('cloud') || weatherDesc.includes('Cloud')) {
-        img.src = 'assets/cloudy.svg';
-    } else if (weatherDesc.includes('rain') || weatherDesc.includes('Rain')) {
+    if (weatherCode === 200 || weatherCode === 201 || weatherCode === 202 || weatherCode === 230 || weatherCode === 231 || weatherCode === 233) {
+        img.src = 'assets/thunder.svg';
+    } else if (weatherCode === 300 || weatherCode === 301 || weatherCode === 302 || weatherCode === 500 || weatherCode === 501 || weatherCode === 502 || weatherCode === 511 || weatherCode === 520 || weatherCode === 522) {
         img.src = 'assets/rainy.svg';
-    } else if (weatherDesc.includes('Thunder')) {
-        img.src = 'assets/thunder.svg'
+    } else if (weatherCode === 521) {
+        img.src = 'assets/showerRain.svg';
+    } else if (weatherCode === 600 || weatherCode === 601 || weatherCode === 602 || weatherCode === 610 || weatherCode === 611 || weatherCode === 612 || weatherCode === 621 || weatherCode === 622 || weatherCode === 623) {
+        img.src = 'assets/snowy.svg';
+    } else if (weatherCode === 800 || weatherCode === 801) {
+        img.src = 'assets/sunny.svg';
+    } else if (weatherCode === 802 || weatherCode === 803) {
+        img.src = 'assets/partlyCloudy.svg'
     } else {
         img.src = 'assets/cloudy.svg';
     }
@@ -131,6 +132,6 @@ function getCelsius(e) {
     console.log(e);
 }
 
-// function getFahrenheit(e) {
-//     console.log(e);
-// }
+function getFahrenheit(e) {
+    console.log(e);
+}
