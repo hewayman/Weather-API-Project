@@ -88,9 +88,9 @@ function displayResults(json) {
         img.src = 'assets/showerRain.svg';
     } else if (weatherCode === 600 || weatherCode === 601 || weatherCode === 602 || weatherCode === 610 || weatherCode === 611 || weatherCode === 612 || weatherCode === 621 || weatherCode === 622 || weatherCode === 623) {
         img.src = 'assets/snowy.svg';
-    } else if (weatherCode === 800 || weatherCode === 801) {
+    } else if (weatherCode === 800) {
         img.src = 'assets/sunny.svg';
-    } else if (weatherCode === 802 || weatherCode === 803) {
+    } else if (weatherCode === 801 || weatherCode === 802 || weatherCode === 803) {
         img.src = 'assets/partlyCloudy.svg'
     } else {
         img.src = 'assets/cloudy.svg';
