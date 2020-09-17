@@ -43,8 +43,8 @@ function displayResults(json) {
     // Set forecast
     let startingTemp = json.data[0].temp;
     let humidity = json.data[0].rh + '%';
-    let precip = json.data[0].precip + ' mm/hr';
-    let windSpeed = json.data[0].wind_spd;
+    let precip = json.data[0].precip.toFixed(2) + ' mm/hr';
+    let windSpeed = json.data[0].wind_spd.toFixed(2);
     let windDirection = json.data[0].wind_cdir;
     let weatherDesc = json.data[0].weather.description;
     let weatherCode = json.data[0].weather.code;
