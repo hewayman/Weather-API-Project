@@ -40,8 +40,8 @@ function displayResults(json) {
     }
     console.log(location);
 
-    // // Set forecast
-    let temp = json.data[0].temp;
+    // Set forecast
+    let startingTemp = json.data[0].temp;
     let humidity = json.data[0].rh + '%';
     let precip = json.data[0].precip + ' mm/hr';
     let windSpeed = json.data[0].wind_spd;
@@ -49,7 +49,12 @@ function displayResults(json) {
     let weatherDesc = json.data[0].weather.description;
     let weatherCode = json.data[0].weather.code;
 
-    console.log(temp);
+    // Create variables for converting temperature
+    let currentTemp;
+    let celsiusTemp;
+    let fahrenheitTemp;
+
+    console.log(startingTemp);
     console.log(humidity);
     console.log(precip);
     console.log(windSpeed); 
@@ -101,12 +106,22 @@ function displayResults(json) {
     celsiusBtn.setAttribute('class', 'celsius');
 
     // Set event listeners for dynamically created buttons
-    celsiusBtn.addEventListener('click', getCelsius);
-    fahrenheitBtn.addEventListener('click', getFahrenheit);
+    celsiusBtn.addEventListener('click', () => {
+        celsiusTemp = Math.round(json.data[0].temp);
+        currentTemp = celsiusTemp + '\xB0C';
+        tempHeading.textContent = currentTemp;
+        console.log(celsiusTemp);
+    });
+    fahrenheitBtn.addEventListener('click', () => {
+        fahrenheitTemp = Math.round(startingTemp * 9 / 5 + 32);
+        currentTemp = fahrenheitTemp + '\xB0F';
+        tempHeading.textContent = currentTemp;
+        console.log(fahrenheitTemp);
+    });
 
-    celsiusBtn.textContent = 'C';
-    fahrenheitBtn.textContent = 'F';
-    tempHeading.textContent = temp + '\xB0';
+    celsiusBtn.textContent = '\xB0C';
+    fahrenheitBtn.textContent = '\xB0F';
+    tempHeading.textContent = Math.round(startingTemp) + '\xB0C';
     tempDesc.textContent = weatherDesc;
     humidityText.textContent = 'Humidity: ' + humidity;
     precipText.textContent = 'Precipitation: ' + precip;
@@ -128,10 +143,10 @@ function displayResults(json) {
     
 }
 
-function getCelsius(e) {
-    console.log(e);
-}
+// function getCelsius(e) {
+//     console.log(e);
+// }
 
-function getFahrenheit(e) {
-    console.log(e);
-}
+// function getFahrenheit(e) {
+//     console.log(e);
+// }
