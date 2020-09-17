@@ -83,6 +83,9 @@ button {
     padding: 0.36em 0.8em;
     border-radius: 0.2em;
     border: transparent;
+    -webkit-box-shadow:0px 4px 4px #111f25;
+    -moz-box-shadow:0px 4px 4px #111f25;
+    box-shadow:0px 4px 4px #111f25;
 }
 
 button:hover {
@@ -99,12 +102,18 @@ button:active {
     width: 2.6em;
     text-align: center;
     margin-right: 8px;
-    font-size: 1em;    
+    font-size: 1em;   
+    -webkit-box-shadow:0px 4px 4px #111f25;
+    -moz-box-shadow:0px 4px 4px #111f25;
+    box-shadow:0px 4px 4px #111f25; 
 }
 .fahrenheit {
     width: 2.6em;
     text-align: center;
     font-size: 1em;
+    -webkit-box-shadow:0px 4px 4px #111f25;
+    -moz-box-shadow:0px 4px 4px #111f25;
+    box-shadow:0px 4px 4px #111f25;
 }
 
 /* SEARCH RESULTS */
